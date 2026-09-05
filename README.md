@@ -8,7 +8,7 @@
 > **DOI:** [10.32996/jefas.2025.7.6.1](https://doi.org/10.32996/jefas.2025.7.6.1)
 > **Published:** September 29, 2025 · **License:** CC BY-NC 4.0 · **Peer-reviewed research article**
 
-**As a Computer Science background and Artificial Intelligence and Machine Learning Researcher I have designed and implemented the temporal graph construction module and the streaming anomaly-detection pipeline; conducted the drift and latency experiments.*
+**As a Computer Science background and Artificial Intelligence and Machine Learning Researcher, Software Engineer professional I have designed and implemented the temporal graph construction module and the streaming anomaly-detection pipeline; conducted the drift and latency experiments.*
 
 ## 1. What this document is
 
