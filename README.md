@@ -16,15 +16,12 @@ This README explains, in ordinary language, a fraud-detection system published i
 
 Technical detail is included, but every technical section is preceded by a plain-language explanation of the same idea.
 
----
-
 ## 2. The problem in one paragraph
 
 When you tap a card, the bank has roughly **one-tenth of one second** to decide whether to approve the payment. In that fraction of a second it must judge whether the transaction is legitimate or criminal. Traditional systems make that judgment by looking at the transaction *by itself* — the amount, the location, the time of day. But modern fraud is rarely a single suspicious transaction. It is a **coordinated network**: one stolen device used across forty accounts, one merchant account laundering money for a ring of "customers," hundreds of small transfers that look ordinary alone and only reveal themselves as a pattern when viewed together. A system that examines transactions one at a time is structurally blind to the thing it is trying to catch.
 
 **This research solves that blindness while still answering in under a tenth of a second.**
 
----
 
 ## 3. Why the current defenses fall short
 
@@ -36,7 +33,6 @@ When you tap a card, the bank has roughly **one-tenth of one second** to decide 
 
 Each of these is a real defense doing real work. The gap this research fills is the space between them: **the relationship-awareness of graph analysis, delivered at the speed of a live payment authorization.**
 
----
 
 ## 4. The core insight: fraud is a network, not a transaction
 
@@ -57,8 +53,6 @@ The critical property is that the map is **temporal** and **heterogeneous**:
 
 - **Temporal** — the map does not just record *that* a card and a device are connected, but *when*, and in what order. A device that touched 40 cards over four years is a shared family tablet. A device that touched 40 cards in eleven minutes is a fraud operation. Only a time-aware map can tell those two apart.
 - **Heterogeneous** — the map holds several different *kinds* of entity and several different *kinds* of relationship at once, rather than flattening everything into one undifferentiated network.
-
----
 
 ## 5. How the system works — the mechanism, step by step
 
@@ -116,7 +110,6 @@ The framework addresses it directly:
 - **Continual learning with replay** — the model updates on new patterns while replaying archived examples, so it learns the new attack *without forgetting* the old one (avoiding the well-known problem of catastrophic forgetting).
 - **Streaming reweighting** — the extreme rarity of fraud (often well under 1% of transactions) is corrected continuously in the live stream, rather than only once at training time.
 
----
 
 ## 6. Architecture at a glance
 
@@ -174,7 +167,6 @@ A design that is accurate but too slow is not a fraud system; it is a research d
 
 Result: a **sub-50–100 millisecond decision budget**, which is inside the authorization window used by real card networks. This is what moves the work from theory to something a payments processor could deploy.
 
----
 
 ## 7. A worked example: catching a mule network
 
@@ -195,8 +187,6 @@ A criminal group recruits 30 people to open ordinary checking accounts. Stolen f
 
 That is the practical difference, stated without exaggeration: **the same evidence, visible instead of invisible.**
 
----
-
 ## 8. Evaluation
 
 The framework was evaluated on **mixed synthetic and industry datasets containing evolving fraud scenarios**, deliberately constructed so that attack patterns *change over the evaluation period* — testing whether the system holds up as adversaries adapt, not merely on a frozen snapshot.
@@ -211,11 +201,8 @@ Metrics were selected for operational meaning rather than headline appeal:
 | **Alert volume** | Number of cases sent to human review | Determines whether a real fraud team can actually operate the system |
 | **Business impact under cost constraints** | Net dollars protected after review costs | The measure an executive or regulator actually cares about |
 
-**Result:** the framework delivered consistent gains over rule-based systems, tabular machine learning, and static graph baselines. The margin was **largest precisely where the need is greatest** — on *low-footprint fraud* (schemes deliberately structured to stay under thresholds) and *fast-moving attack campaigns* (schemes that begin and end before a batch system refreshes).
+**Result:** The framework delivered consistent gains over rule-based systems, tabular machine learning, and static graph baselines. The margin was **largest precisely where the need is greatest** — on *low-footprint fraud* (schemes deliberately structured to stay under thresholds) and *fast-moving attack campaigns* (schemes that begin and end before a batch system refreshes).
 
-> **⚠ ACTION REQUIRED BEFORE FILING:** Replace this box with the exact figures from the published tables — the reported ROC-AUC, PR-AUC, detection delay, and baseline comparison numbers. A USCIS officer weighs *specific verifiable numbers* far more heavily than qualitative claims, and every figure in the petition must match the published paper exactly.
-
----
 
 ## 9. Why this matters to the United States economy
 
@@ -256,11 +243,7 @@ This is the strongest available evidence that the endeavor has national importan
 
 This system does not eliminate fraud, and this document does not claim it does. What it does is close a specific, identifiable, and expensive gap: **coordinated fraud rings that are individually invisible and collectively devastating, operating faster than batch-refreshed defenses can respond.** Given the federally documented figures above, even a modest proportional improvement against that specific category represents hundreds of millions of dollars annually retained in the U.S. economy — and the government's own six-fold FY2024 result demonstrates that improvements in this domain are not incremental in practice.
 
----
-
 ## 10. From publication to U.S. deployment
-
-*[Customize this section — it is the strongest part of the argument, because it demonstrates that the research is not confined to a journal.]*
 
 The methods in this paper are directly continuous with my current professional and research work in the United States:
 
@@ -268,9 +251,8 @@ The methods in this paper are directly continuous with my current professional a
 
 - **Continuing research:** *"Safeguarding Public Healthcare Spending with Explainable AI: A Statistically Validated Machine Learning Framework for Medicaid Fraud Detection and Electronic Visit Verification,"* Frontiers in Computer Science and Artificial Intelligence, 5(3), 35–44 (2026). DOI: 10.32996/jcsts.2026.5.3.4. This work applies the same explainable-anomaly-detection philosophy to a real CMS dataset protecting U.S. public healthcare spending.
 
-- **Trajectory:** the through-line across this record is a single national endeavor — **AI-driven, explainable, real-time fraud and anomaly detection protecting U.S. financial and public-benefit systems.** The published financial-fraud research establishes the methodological foundation; the Medicaid work applies it to federal program integrity; the professional role operationalizes it inside a U.S. healthcare provider.
+- **Trajectory:** The through-line across this record is a single national endeavor — **AI-driven, explainable, real-time fraud and anomaly detection protecting U.S. financial and public-benefit systems.** The published financial-fraud research establishes the methodological foundation; the Medicaid work applies it to federal program integrity; the professional role operationalizes it inside a U.S. healthcare provider.
 
----
 
 ## 11. Reproducibility and technical stack
 
@@ -291,8 +273,6 @@ The methods in this paper are directly continuous with my current professional a
 
 **Core stack:** Python · PyTorch · PyTorch Geometric / DGL · scikit-learn · streaming ingestion layer (e.g. Kafka) · in-memory feature store (e.g. Redis)
 
----
-
 ## 12. Glossary for the non-technical reader
 
 | Term | Plain meaning |
@@ -310,8 +290,6 @@ The methods in this paper are directly continuous with my current professional a
 | **Precision@k** | Of the top *k* alerts sent to human analysts, how many are real |
 | **Latency** | How long the system takes to answer — here, under 100 milliseconds |
 | **Explainability (XAI)** | The system's ability to state *why* it made a given decision |
-
----
 
 ## 13. Sources
 
